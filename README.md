@@ -56,10 +56,12 @@ Here is a complete example of how to create a large red square with a small purp
 `[([Scale (Vector 40 40), Translate (Vector -3 -1), Rotate 45], Square, StyleSheet (StrokeWidth 3) (StrokeColour 180 0 180) (FillColour 255 0 0))]`.
 <br/><br/>
 Here's what it looks like:
-Image here.
+<img src="static/Example1.png">
 <br/><br/>
 Multiple shapes can be drawn by simply placing them one after the other and comma seperating them in the input.
 Here's an example of two squares drawn on opposite ends of the screen. `[([Scale (Vector 40 40), Translate (Vector -3 -1), Rotate 45], Square, StyleSheet (StrokeWidth 3) (StrokeColour 180 0 180) (FillColour 255 0 0)),([Scale (Vector 40 40), Translate (Vector 3 -1), Rotate 45], Square, StyleSheet (StrokeWidth 3) (StrokeColour 180 0 180) (FillColour 0 255 0))]`.
 <br/><br/>
 Here's what it looks like:
-Image here
+<img src="static/Example2.png">
+
+If an input is not of the right syntax, a big "Invalid Input!" message will appear across the SVG until a correct syntax is rendered.

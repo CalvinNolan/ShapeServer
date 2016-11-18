@@ -1,0 +1,119 @@
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<style>
+		.title {
+			width: 300px;
+			height: 10%;
+			margin: 0 auto;
+		}
+
+		.title * {
+			float: left;
+		}
+
+		p {
+			font-size: 40px;
+			font-family: Gill Sans;
+			text-transform: uppercase;
+		}
+
+		.capital {
+			font-size: 80px;
+			font-family: Gill Sans;
+			margin-top: 15px;
+			margin-bottom: 0;
+		}
+
+		.tiny {
+			font-size: 15px;
+			margin-top: 40px;
+		}
+
+		svg {
+			width: 95%;
+			height: 60%;
+			margin-left: 2.5%;
+			border: 1px solid #000;
+			float: left;
+			margin-bottom: 20px;
+		}
+		.shapeInput {
+			text-align: center;
+			margin-top: 1%;
+			height: 15%;
+		}
+
+		.shapeInput textarea {
+			width: 95%;
+			height: 80%;
+			resize: none;
+		}
+
+		.shapeInput button {
+			width: 100px;
+			margin-top: 1%;
+		}
+
+		.errorInput {
+			display: none;
+		}
+
+		.errorInput p {
+			display: inline;
+			opacity: 1;
+			color: #000;
+			float: left;
+			margin-top: -10%;
+			margin-left: 40%;
+		}
+		</style>
+	</head>
+	<body>
+		<div class="title">
+			<p class="capital">S</p><p>hape</p><p class="capital">S</p><p>erver</p><p class="tiny">&#8482;</p>
+		</div>
+		<div class="outputWrapper">
+			<svg class="svgWrapper">
+			</svg>
+			<span class="errorInput">
+				<p>Invalid Input!</p>
+			<span>
+		</div>
+		<form class="shapeInput">
+			<textarea class="shapeText"></textarea>
+			<button class="renderButton" type="button">Render</button>
+		</form>
+		<script>
+			$.ajax({
+				method: "POST",
+				url: "/svg",
+				data: {
+					shapeInput: "[([Scale (Vector 20 20), Translate (Vector 0 -1), Rotate 45], Square, StyleSheet (StrokeWidth 0) (StrokeColour 0 0 0) (FillColour 0 0 0))]"
+				},
+				dataType: "html"
+			}).done(function(data) {
+				$(".svgWrapper").html(data);
+				$(".shapeText").val("[([Scale (Vector 20 20), Translate (Vector 0 -1), Rotate 45], Square, StyleSheet (StrokeWidth 0) (StrokeColour 0 0 0) (FillColour 0 0 0))]");
+			});
+
+			$(".renderButton").click(function () {
+				$.ajax({
+					method: "POST",
+					url: "/svg",
+					data: {
+						shapeInput: $(".shapeText").val()
+					},
+					dataType: "html",
+					error: function(data) {
+						$(".errorInput").show();
+					}
+				}).done(function(data) {
+					console.log(data);
+					$(".svgWrapper").html(data);
+					$(".errorInput").hide();
+				});
+			});
+		</script>
+	</body>
+</html>
